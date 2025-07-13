@@ -8,7 +8,7 @@ app = FastAPI()
 # ✅ CORS Setup (for frontend communication)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # <-- Replace with your frontend origin in production
+    allow_origins=["https://health-chatbot-liard.vercel.app/"],  # <-- Replace with your frontend origin in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
