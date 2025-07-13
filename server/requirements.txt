@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+cohere
+numpy
+datasets
+motor
+pydantic
+PyJWT>=2.0
+passlib[bcrypt]

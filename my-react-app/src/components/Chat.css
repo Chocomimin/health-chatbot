@@ -1,0 +1,757 @@
+/* chat.css - Premium Level Styling */
+
+
+/* Google Fonts - Optional: Import a nice, modern font */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+:root {
+    /* Define a modern color palette */
+    --primary-color: #4A90E2;
+    /* A professional blue */
+    --secondary-color: #50E3C2;
+    /* A complementary greenish-blue */
+    --background-light: #F8F9FA;
+    /* Very light background */
+    --background-dark: #E9ECEF;
+    /* Slightly darker background for contrast */
+    --text-color: #343A40;
+    /* Dark text for readability */
+    --text-light: #6C757D;
+    /* Lighter text for secondary info */
+    --border-color: #DEE2E6;
+    /* Subtle border */
+    --hover-bg: #EAF2F8;
+    /* Light blue for hover */
+    --active-bg: #D4E2F0;
+    /* Slightly darker blue for active/selected */
+    --danger-color: #DC3545;
+    /* Red for delete/errors */
+    --success-color: #28A745;
+    /* Green for new chat/success */
+    --input-bg: #FFFFFF;
+    /* White for inputs */
+    --chat-bubble-user: #DCF8C6;
+    /* Light green for user messages */
+    --chat-bubble-bot: #E0E0E0;
+    /* Light grey for bot messages */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* Apply the new font */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-light);
+    /* Apply base background */
+    color: var(--text-color);
+}
+
+
+/* Base Layout */
+
+.layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent body scroll if content overflows */
+    border-radius: 12px;
+    /* Slightly rounded overall layout */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+    margin: 20px;
+    /* Some margin around the whole app */
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    width: 250px;
+    /* Slightly wider sidebar */
+    padding: 1.5rem;
+    /* More generous padding */
+    background-color: var(--background-dark);
+    /* Slightly darker background for sidebar */
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* For scrollbar styling */
+    transition: width 0.3s ease;
+    /* Smooth transition if width changes */
+}
+
+.sidebar h3 {
+    color: var(--primary-color);
+    /* Highlight header */
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.session-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    flex-grow: 1;
+    /* Allows list to take available space */
+}
+
+.session-item {
+    padding: 10px 12px;
+    /* Increased padding */
+    margin-bottom: 8px;
+    /* More space between items */
+    border-radius: 8px;
+    /* Rounded corners for items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    border: 1px solid transparent;
+    /* Subtle border for definition */
+}
+
+.session-item:hover {
+    background-color: var(--hover-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* Soft shadow on hover */
+    border-color: rgba(74, 144, 226, 0.2);
+    /* Light primary color border on hover */
+}
+
+.session-item.active {
+    background-color: var(--active-bg);
+    /* Active item stands out more */
+    color: var(--primary-color);
+    /* Active text color */
+    font-weight: 500;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* More prominent shadow for active */
+}
+
+.session-name {
+    flex: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    /* Prevent name from wrapping */
+    overflow: hidden;
+    /* Hide overflow */
+    text-overflow: ellipsis;
+    /* Add ellipsis for long names */
+}
+
+.new-chat-button {
+    width: 100%;
+    margin-top: 1.5rem;
+    /* More space above button */
+    padding: 0.8rem 1rem;
+    /* Larger padding for button */
+    background-color: var(--success-color);
+    /* Green for new chat */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    /* Rounded button */
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+    /* Soft shadow for button */
+}
+
+.new-chat-button:hover {
+    background-color: #218838;
+    /* Darker green on hover */
+    transform: translateY(-1px);
+    /* Slight lift effect */
+}
+
+.new-chat-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    /* Softer delete icon color */
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 0.8rem;
+    /* More space */
+    transition: color 0.2s ease, transform 0.1s ease;
+    padding: 5px;
+    /* Make it easier to click */
+    border-radius: 4px;
+    /* Slight rounding for hit area */
+}
+
+.delete-button:hover {
+    color: var(--danger-color);
+    /* Red on hover */
+    transform: scale(1.1);
+    /* Slight grow effect */
+}
+
+
+/* Chat Area */
+
+.chat-area {
+    flex: 1;
+    padding: 1.5rem;
+    /* Consistent padding */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-light);
+    /* Lighter background for chat area */
+}
+
+.chat-area h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    /* Subtle separator */
+    padding-bottom: 1rem;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: var(--input-bg);
+    /* White background for chat box */
+    border-radius: 10px;
+    /* More rounded chat box */
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    /* More space before input */
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.03);
+    /* Subtle inner shadow */
+    position: relative;
+    /* For scrollbar styling */
+    line-height: 1.6;
+    /* Better line spacing for readability */
+}
+
+
+/* Markdown specific styling (enhances react-markdown output) */
+
+.chat-box p {
+    margin-bottom: 0.5rem;
+    /* Space between paragraphs */
+}
+
+.chat-box strong {
+    font-weight: 600;
+    /* Slightly bolder bold text */
+}
+
+.chat-box ul,
+.chat-box ol {
+    margin-left: 1.5rem;
+    /* Indent lists */
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.chat-box li {
+    margin-bottom: 0.3rem;
+}
+
+.chat-box h1,
+.chat-box h2,
+.chat-box h3,
+.chat-box h4,
+.chat-box h5,
+.chat-box h6 {
+    color: var(--text-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.chat-box h3 {
+    font-size: 1.25rem;
+}
+
+.chat-box h4 {
+    font-size: 1.1rem;
+}
+
+.chat-box hr {
+    border: none;
+    border-top: 1px dashed var(--border-color);
+    /* Dashed horizontal rule */
+    margin: 1.5rem 0;
+}
+
+
+/* Message styling */
+
+.message-container {
+    margin-bottom: 1.2rem;
+    /* More space between messages */
+    padding: 10px 15px;
+    /* Padding inside message container */
+    border-radius: 12px;
+    /* Rounded corners for individual messages */
+    max-width: 90%;
+    /* Limit width of messages */
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow for message bubbles */
+}
+
+
+/* User message specific styling */
+
+.message-container:has(strong:contains("You")):not(:has(.edit-input)) {
+    /* Targets "You" messages, excluding when editing */
+    background-color: var(--chat-bubble-user);
+    margin-left: auto;
+    /* Align user messages to the right */
+    border-bottom-right-radius: 2px;
+    /* "Tail" effect */
+}
+
+
+/* Bot message specific styling */
+
+.message-container:has(strong:contains("Bot")):not(:has(.edit-input)) {
+    /* Targets "Bot" messages, excluding when editing */
+    background-color: var(--chat-bubble-bot);
+    margin-right: auto;
+    /* Align bot messages to the left */
+    border-bottom-left-radius: 2px;
+    /* "Tail" effect */
+}
+
+.message-container strong {
+    display: block;
+    /* Puts "You" or "Bot" on its own line */
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    /* Highlight speaker */
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+/* Input and Button */
+
+.input-container {
+    display: flex;
+    gap: 15px;
+    /* More space between input and button */
+    align-items: center;
+}
+
+.input-field {
+    flex: 1;
+    padding: 12px 18px;
+    /* Larger padding */
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    /* Pill-shaped input field */
+    outline: none;
+    /* Remove default outline */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+.input-field::placeholder {
+    color: var(--text-light);
+    /* Softer placeholder text */
+}
+
+.input-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    /* Glow effect on focus */
+}
+
+.send-button {
+    padding: 12px 25px;
+    /* Larger, more prominent button */
+    font-size: 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    /* Pill-shaped button */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+    /* Soft shadow for button */
+    font-weight: 500;
+}
+
+.send-button:hover {
+    background-color: #3C7DCF;
+    /* Darker blue on hover */
+    transform: translateY(-1px);
+}
+
+.send-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* Edit functionality */
+
+.edit-input {
+    width: calc(100% - 130px);
+    /* Adjust width to fit save button */
+    margin-right: 15px;
+    padding: 8px 12px;
+    border: 1px solid var(--primary-color);
+    /* Highlight edit border */
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: box-shadow 0.2s ease;
+}
+
+.edit-input:focus {
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.save-button {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.save-button:hover {
+    background-color: #3C7DCF;
+}
+
+.edit-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    /* Softer edit icon color */
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 6px;
+    /* Space below message content */
+    align-self: flex-end;
+    /* Align to the right if using flex */
+    transition: color 0.2s ease, transform 0.1s ease;
+    padding: 5px;
+    /* Make it easier to click */
+    border-radius: 4px;
+}
+
+.edit-button:hover {
+    color: var(--primary-color);
+    /* Primary color on hover */
+    transform: scale(1.1);
+}
+
+
+/* Loading Indicator (slightly refined animation) */
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px;
+}
+
+.loading-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    animation: pulse 1.4s infinite ease-in-out both;
+}
+
+
+/* Add to your existing Chat.css */
+
+
+/* Initial Loading Screen */
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--background-light);
+    color: var(--text-color);
+}
+
+.large-loading .loading-dot {
+    width: 20px;
+    /* Larger dots */
+    height: 20px;
+}
+
+.large-loading p {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+
+/* No Chat Selected State */
+
+.no-chat-selected {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-light);
+    padding: 2rem;
+    text-align: center;
+}
+
+.no-chat-selected p {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.large-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    min-width: 250px;
+    /* Ensure button is wide enough */
+}
+
+
+/* Disable styles for buttons and inputs when loading */
+
+button:disabled,
+input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Existing styles from previous premium update */
+
+
+/* ... (keep all your existing premium CSS rules here) ... */
+
+.loading-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0s;
+}
+
+
+/* ===== Modal Styles for MapView Popup ===== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dark semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Ensure it's above all other elements */
+}
+
+.modal-content {
+    background-color: var(--input-bg);
+    /* White background */
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
+}
+
+.modal-content>div {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--danger-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    z-index: 10;
+}
+
+.close-button:hover {
+    background: #c82333;
+    /* Darker red on hover */
+}
+
+@keyframes pulse {
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* Custom Scrollbar for Webkit browsers (Chrome, Safari) */
+
+.sidebar::-webkit-scrollbar,
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.chat-box::-webkit-scrollbar-track {
+    background: var(--background-dark);
+    /* Match sidebar background */
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: var(--background-light);
+    /* Match chat box background */
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--text-light);
+    /* Softer thumb color */
+    border-radius: 10px;
+    border: 2px solid var(--background-dark);
+    /* Border to shrink thumb */
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    border: 2px solid var(--background-light);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color);
+    /* Primary color on hover */
+}
+
+.logout-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.6rem;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1rem;
+        flex-direction: row;
+        /* Layout sidebar items horizontally */
+        align-items: center;
+        justify-content: space-between;
+    }
+    .sidebar h3 {
+        margin-bottom: 0;
+        margin-right: 1rem;
+        /* Space between title and button */
+    }
+    .new-chat-button {
+        width: auto;
+        /* Allow button to shrink */
+        margin-top: 0;
+    }
+    .session-list {
+        display: none;
+        /* Hide session list on smaller screens to save space */
+    }
+    .chat-area {
+        flex: 1;
+        padding: 1rem;
+    }
+    .input-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .input-field,
+    .send-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-area h2 {
+        font-size: 1.5rem;
+    }
+}
