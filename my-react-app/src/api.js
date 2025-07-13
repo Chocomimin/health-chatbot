@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8000", // adjust if needed
+  baseURL: "https://health-chatbot-iq6n.onrender.com", // adjust if needed
 });
 
 // Add token to every request if present
