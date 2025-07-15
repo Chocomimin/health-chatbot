@@ -1,38 +1,7 @@
 💬 Health Chatbot
 Health Chatbot is a full-stack healthcare-focused chatbot web application designed to assist users through intelligent conversation. It provides a user-friendly interface for interaction, authentication, and additional features like map integration. This project is developed using React (Vite) for the frontend and FastAPI for the backend.
 
-📂 Project Directory Structure
-graphql
-Copy
-Edit
-health-chatbot/
-├── my-react-app/           # Frontend (React + Vite)
-│   ├── README.md
-│   ├── eslint.config.js
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js
-│   └── src/
-│       ├── api.js               # API request handler (Axios)
-│       ├── App.css              # App-level styling
-│       ├── App.jsx              # Main App component
-│       ├── index.css            # Global CSS
-│       ├── main.jsx             # React app root entry
-│       └── components/          # React Components
-│           ├── AuthForm.css     # AuthForm styling
-│           ├── Chat.css         # Chat component styling
-│           ├── Chat.jsx         # Chat Component
-│           ├── Login.jsx        # Login Component
-│           ├── MapView.jsx      # Map integration Component
-│           └── Signup.jsx       # Signup Component
-└── server/               # Backend (FastAPI)
-    ├── auth.py           # Authentication logic
-    ├── chat_routes.py    # Chat API routes
-    ├── database.py       # Database connection
-    ├── main.py           # FastAPI app entrypoint
-    ├── models.py         # Pydantic models
-    ├── requirements.txt  # Python dependencies
-    └── utils.py          # Utility functions
+
 🚀 Project Setup and Running Instructions
 🔧 Prerequisites
 Node.js (v18+ recommended)
